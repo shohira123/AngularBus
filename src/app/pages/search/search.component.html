@@ -1,0 +1,137 @@
+<div class="container-fluid">
+    <app-header></app-header>
+
+    <div class="wrapper ">
+        <div class="innerwrapper">
+
+            <div class="container" id="search">
+
+                <div class="row my-4">
+                    <h1>Bus search !</h1>
+                    <!-- form start -->
+                    <form class="row">
+                        <div class="mb-3 col-md-3">
+                            <label for="from" class="form-label">From</label>
+                            <select class="form-select" name="fromLocation" [(ngModel)]="searchobj.fromLocation"
+                                aria-label="Default select example">
+                                <option>select</option>
+                                @for( item of location$|async;track $index){
+                                <option [value]="item._id">{{item.Location}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3 col-md-3">
+                            <label for="to" class="form-label">To</label>
+                            <select class="form-select" name="toLocation" [(ngModel)]="searchobj.toLocation"
+                                aria-label="Default select example">
+                                <option>select</option>
+                                <!-- <option *ngFor="let location of location$| async">{{location.Location}}</option> -->
+                                @for( item1 of location$|async;track $index){
+                                <option [value]="item1._id">{{item1.Location}}</option>
+                                }
+
+                            </select>
+                            <!-- @for (item of location$; track $index) {
+                        <li>{{ item.location }}</li>
+
+                        } -->
+                        </div>
+                        <div class="mb-3 col-md-3">
+                            <label for="datebooking" class="form-label">Select Date</label>
+                            <input type="date" name="travelDate" [(ngModel)]="searchobj.travelDate" class="form-control"
+                                id="datebooking">
+                        </div>
+                        <div class="mt-4 p-2 col-md-3 ">
+                            <button type="button" (click)="onsearch()" class="btn">Submit</button>
+                        </div>
+
+
+                    </form>
+                    <!-- form end -->
+                </div>
+            </div>
+
+        </div> <!-- inner -->
+
+    </div> <!-- wrapper -->
+
+    <!-- bus list start -->
+    <!-- @for(item1 of buslist;track $index){ -->
+    <!-- @if(buslist && buslist.length !==0){ -->
+    <div class="conatiner" *ngIf="!buslist?.length;else tabledetail">
+        <h1 class="text-center bg-light border border-dark m-5 p-3">No record search</h1>
+    </div>
+
+    <ng-template #tabledetail>
+
+
+        <div class="container tablecontainer">
+            <table class="table">
+                <thead class="">
+                    <th>id</th>
+                    <th>Busname</th>
+                    <th>VendorDetail</th>
+                    <th>Time</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>View</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of buslist;index as i">
+
+                        <td>
+                            <h6>{{i+1}}</h6>
+                        </td>
+                        <td>
+                            <h5>{{list.busName}}</h5>
+                            <h5>{{list.busVehicleNo}}</h5>
+                        </td>
+                        <td>
+                            <span *ngFor="let vendor of list.vendorname">
+                                <h6>vendorName:{{vendor.vendorName}}</h6>
+
+                            </span>
+
+                        </td>
+                        <td>
+                            <h6>departuretime:-{{list.departureTime|date:"hh:mm:ss"}}</h6>
+                            <h6>arrivalTime:-{{list.arrivalTime|date:"hh:mm:ss"}}</h6>
+                        </td>
+                        <td *ngFor="let fromloc of list.Locationfrom">
+                            <h6> {{fromloc.Location}}</h6>
+                        </td>
+                        <!-- <td>
+                        <h6> {{list.Location}}</h6>
+                    </td> -->
+                        <td *ngFor="let toloc of list.Locationto">
+                            <h6> {{toloc.Location}}</h6>
+                        </td>
+                        <!-- <td>
+                        <h6> {{list.toLocation}}</h6>
+                    </td> -->
+                        <td>
+                            <button name="view" class="btn btn-dark" [routerLink]="['/booking',list._id]">Book
+                                Seat</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+                <!-- {{item.Locationto}} -->
+            </table>
+        </div>
+    </ng-template>
+    <!-- }
+    @else
+    {
+    <h1>No Record searched!!!</h1>
+    } -->
+</div> <!-- fluid-->
+
+
+<!-- <li>{{item2.fromLocation}}</li> -->
+
+
+<!-- } -->
+
+<!-- buslist end -->

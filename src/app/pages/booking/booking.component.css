@@ -1,0 +1,19 @@
+.seat {
+
+    padding: 5px;
+    background-color: bisque;
+
+}
+
+.reserved {
+    background-color: green;
+    cursor:not-allowed;
+}
+
+.available {
+    background-color: white;
+}
+
+.selected {
+    background: red;
+}

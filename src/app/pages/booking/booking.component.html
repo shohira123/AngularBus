@@ -1,0 +1,127 @@
+<div class="container-fluid">
+    <app-header></app-header>
+
+
+    <div class="container-fluid row my-5 ">
+        <div class="col-lg-4 col-md-4 col-sm-12 border shadow rounded ">
+            <div class="row justify-content-center  p-2  ">
+                <div class="col-10">
+
+
+
+                    <div class=" row justify-content-end" style="height: 50px;">
+                        <img src="assets/images/driver.png" alt="" style="height: 50px;width: 70px;">
+                    </div>
+                    <div class="row justify-content-around">
+                        @for(seatno of seatarray;track $index){
+
+                        @if(checkIfSeatBooked(seatno)!= -1){
+                        <div class="col-3 text-center p-2 ">
+                            <div class="  seat reserved disabled">{{seatno}} <img src="assets/images/seatforcust.png"
+                                    alt="" style="width: 30px;">
+                            </div>
+                        </div>
+                        }
+                        @else{
+                        @if(checkisseatselected(seatno) != -1){
+                        <div class="col-3 text-center p-2 ">
+                            <div class="seat selected" (click)="selectedseat(seatno)">{{seatno}} <img
+                                    src="assets/images/seatforcust.png" alt="" style="width: 30px;"></div>
+                        </div>
+                        }
+                        @else{
+                        <div class="col-3 text-center p-2 ">
+                            <div class="seat available" (click)="selectedseat(seatno)">{{seatno}} <img
+                                    src="assets/images/seatforcust.png" alt="" style="width: 30px;"></div>
+                        </div>
+                        }
+
+
+
+
+                        }
+
+
+                        }
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--passenger multiform start-->
+        <div class="col-lg-8 col-md-8 col-sm-12 ">
+            <div class="row justify-content-center p-2 border shadow rounded">
+                <div class=" col-md-12 my-4">
+
+                    @for(item of userselectedseatArrayObject;track $index){
+                    <h5>Passenger Detail</h5>
+
+                    <div class="row gx-3 gy-2 align-items-center my-2">
+                        <div class="col-sm-2">
+                            <label class="" for="Fullname">Fullname</label>
+                            <input type="text" class="form-control" [(ngModel)]="item.passengername" id="Fullname"
+                                placeholder="">
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="" for="age">Age</label>
+                            <div class="input-group">
+                                <!-- <div class="input-group-text">@</div> -->
+
+                                <input type="number" class="form-control" value="4" max="150" [(ngModel)]="item.age"
+                                    id="age" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="" for="specificSizeSelect">Gender</label>
+                            <select class="form-select" [(ngModel)]="item.gender" id="specificSizeSelect">
+                                <option selected>choose gender...</option>
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                                <option value="other">other</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label class="" for="seatno">Seat no</label>
+                            <input type="text" disabled class="form-control" [(ngModel)]="item.seatno"
+                                value="{{item.seatno}}" id="seatno" placeholder="">
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="" for="price">price</label>
+                            <input type="text" disabled class="form-control" [(ngModel)]="item.price"
+                                value="{{item.price}}" id="price" placeholder="">
+                        </div>
+
+                    </div>
+                    }
+
+
+
+                    @if(!userselectedseatArrayObject || userselectedseatArrayObject.length === 0){
+                    <h3 style="color:#333d29">you have not selected any seats yet !!!</h3>
+
+                    }
+                    @else{
+                    <div class="col-sm-2 my-4">
+                        <h4 class="text-danger">Total</h4>
+                        <input type="text" class="form-control" value="{{total}}" id="total" placeholder="">
+                    </div>
+
+                    <button type="button" class="btn btn-danger" (click)="bookingnow()">Submit</button>
+                    }
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--passenger multiform end-->
+    </div>
+
+
+</div>

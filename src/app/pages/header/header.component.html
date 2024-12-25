@@ -1,0 +1,165 @@
+<nav class="navbar navbar-expand-lg ">
+    <div class="container-fluid innernavbar">
+        <a class="navbar-brand" href="#"><img src="assets/images/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" [routerLink]="['/search']">SearchBus</a>
+                </li>
+
+                @if(islogindata){
+                <li class="nav-item">
+
+
+                    <!-- using route parameter we need to add params in path of route file below code -->
+                    <a class="nav-link" [routerLink]="['/useraccount/', islogindata._id]">UserAccount</a>
+
+                    <!-- with query paramere we dont need to add query pamater in routes -->
+                    <!-- <a class="nav-link" [routerLink]="['/useraccount/']"
+                        [queryParams]="{userid: islogindata._id}">UserAccount</a> -->
+                </li>
+                }
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            @if(islogindata){
+            <label for=""><i class="fa-solid fa-user" style="color: #fffafa;"></i></label>
+            <div class="text-white mx-3">{{ islogindata.fullname}}</div>
+            <button type="button" class="btn btn-light mx-3" (click)="logoff()">
+                logout
+            </button>
+            }
+            @else{
+            <button type="button" class="btn btn-light mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                login/Registration
+            </button>
+            }
+
+            <!-- <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+        </div>
+    </div>
+</nav>
+
+
+<!-- modal start -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Login Here</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-2 p-3">
+                @if(isloginform){
+                <form>
+                    <div class="mb-3">
+                        <label for="emaillogin" class="form-label">Email address</label>
+                        <input type="email" class="form-control" [(ngModel)]="loginobj.emaillogin" id="emaillogin"
+                            name="emaillogin" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordlogin" class="form-label">Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="loginobj.passwordlogin"
+                            name="passwordlogin" id="passwordlogin">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" (click)="loginform()">Submit</button>
+                    <button type="button" class="text-primary border-0 m-4" (click)="showregisterform()">New Member
+                        Signup
+                        Here!!</button>
+                </form>
+                }
+                @else{
+                <!-- registration start -->
+                <form>
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Fullname</label>
+                        <input type="text" class="form-control" [(ngModel)]="registerobj.fullname" name="fullname"
+                            id="fullname">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" [(ngModel)]="registerobj.email" name="fullname"
+                            id="email" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="registerobj.password" name="password"
+                            id="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" [(ngModel)]="registerobj.age" name="age" id="age">
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Select Gender</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="registerobj.gender" name="gender"
+                                value="Male" id="Male">
+                            <label class="form-check-label" for="Male">
+                                Male
+                            </label>
+
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="registerobj.gender" name="gender"
+                                value="Female" id="Female" checked>
+                            <label class="form-check-label" for="Female">
+                                Female
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="registerobj.gender" name="gender"
+                                value="Other" id="Other" checked>
+                            <label class="form-check-label" for="Other">
+                                Other
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary m-4" (click)="registerform()">Register</button>
+                    <button type="button" class="text-primary border-0 m-4" (click)="showloginform()">Already a member
+                        click
+                        to login!!</button>
+                    <!-- <a href="">Already a member click to login!!</a> -->
+                </form>
+                }
+
+
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->

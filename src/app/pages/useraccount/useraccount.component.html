@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <app-header></app-header>
+    <div>{{bookingid}}</div>
+    <div>{{userid}}</div>
+    <div class="card">
+        <div *ngFor="let detail of BookingDetail;index as i">
+            <li>{{detail._id}}</li>
+            <li>{{detail.totalamount}}</li>
+            <li>{{detail.bookingdate}}</li>
+            <li>{{detail._id}}</li>
+        </div>
+    </div>
+</div>
